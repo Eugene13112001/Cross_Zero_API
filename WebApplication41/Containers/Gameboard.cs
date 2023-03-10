@@ -133,10 +133,11 @@ namespace WebApplication41.Containers {
 
         
         public IEnumerable<string> PutRandomField (IEnumerable<string> gameBoard, string playerSymbol) {
-            
-            IEnumerable<string>  notselected = gameBoard.Where(i => i == EMPTY);
+
+            IEnumerable<int> indexes = gameBoard.Select ((i, a) => a);
+            IEnumerable<int>  notselected = indexes.Where(i => gameBoard.ElementAt(i) != EMPTY);
             Random rnd = new Random();
-            int move = rnd.Next(0, notselected.Count());
+            int move = notselected.ElementAt(rnd.Next(0, notselected.Count()));
 
             return  gameBoard.Select ((s, i) =>
                     i == move ?
